@@ -1,5 +1,5 @@
 module.exports = {
-	extends: [`plugin:react/recommended`, `plugin:@typescript-eslint/recommended`, `prettier/@typescript-eslint`],
+	extends: [`plugin:react/recommended`, `plugin:eslint-plugin-jsx-a11y`, `plugin:@typescript-eslint/recommended`, `prettier/@typescript-eslint`],
 	parser: `@typescript-eslint/parser`,
 	parserOptions: {
 		ecmaVersion: 2020,
