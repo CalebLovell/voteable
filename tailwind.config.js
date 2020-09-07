@@ -9,6 +9,16 @@ module.exports = {
 			fontFamily: {
 				sans: [`Inter var`, ...defaultTheme.fontFamily.sans],
 			},
+			colors: {
+				base: {
+					primary: `var(--base-primary)`,
+					secondary: `var(--base-secondary)`,
+				},
+				accent: {
+					primary: `var(--accent-primary)`,
+					secondary: `var(--accent-secondary)`,
+				},
+			}
 		},
 	},
 	variants: {},

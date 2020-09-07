@@ -1,18 +1,23 @@
 @tailwind base;
 @tailwind components;
-
-.btn-blue {
-	@apply bg-blue-500 text-white font-bold py-2 px-4 rounded;
-}
-
-.hero {
-	@apply py-20;
-}
-
-.title {
-	@apply text-5xl text-center;
-	color: #333;
-	line-height: 1.15;
-}
-
 @tailwind utilities;
+
+:root {
+	--base-primary: var(rgba(255, 255, 255, 1));
+	--base-secondary: var(rgba(0, 0, 0, 1));
+	--accent-primary: var(rgba(255, 0, 27, 1));
+	--accent-secondary: var(rgba(128, 0, 13, 1));
+	min-height: 100vh;
+}
+
+.theme-light {
+	--primary: var(--primary);
+	--secondary: var(--secondary);
+	--tertiary: var(--accent);
+}
+
+.theme-dark {
+	--primary: var(--primary);
+	--secondary: var(--secondary);
+	--tertiary: var(--accent);
+}
