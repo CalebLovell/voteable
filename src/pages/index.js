@@ -1,7 +1,9 @@
+import { Container } from '@components/Layout/Container';
+
 export default function LandingPage() {
 	return (
-		<div>
-			Voteable Landing Page
-		</div>
+		<Container>
+			<div>Voteable Landing Page</div>
+		</Container>
 	);
 }

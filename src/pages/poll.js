@@ -1,3 +1,9 @@
+import { Container } from '@components/Layout/Container';
+
 export default function PollPage() {
-	return <div>Answer the poll</div>;
+	return (
+		<Container>
+			<div>Answer the poll</div>
+		</Container>
+	);
 }
