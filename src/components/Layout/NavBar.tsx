@@ -7,7 +7,7 @@ import { MobileMenuButton } from '@components/Buttons/MobileMenuButton';
 
 export const NavBar: React.FC = () => {
 	return (
-		<Container style='bg-base-primary h-20'>
+		<Container style='bg-base-primary h-14'>
 			<div className='h-full flex justify-between items-center md:hidden'>
 				<MobileMenuButton />
 				<div className='flex items-center space-x-2'>
@@ -18,9 +18,9 @@ export const NavBar: React.FC = () => {
 			<nav className='h-full hidden md:flex justify-between items-center'>
 				<div className='flex items-center'>
 					<LogoLink />
-					<InlineLink href='/create' label='Create a Poll' />
-					<InlineLink href='/poll' label='Discover' />
-					<InlineLink href='/result' label='Learn More' />
+					<InlineLink href='/create' label='Create' />
+					<InlineLink href='/poll' label='Poll' />
+					<InlineLink href='/result' label='Result' />
 				</div>
 				<div className='flex items-center md:space-x-2 lg:space-x-10'>
 					<div className='flex items-center space-x-2'>
@@ -28,8 +28,8 @@ export const NavBar: React.FC = () => {
 						<DarkModeButton />
 					</div>
 					<div className='flex items-center space-x-2'>
-						<InlineLink href='/' label='Sign in' />
-						<InlineLink href='/' label='Sign up' type='button' />
+						<InlineLink href='/signin' label='Sign in' />
+						<InlineLink href='/signup' label='Sign up' type='button' />
 					</div>
 				</div>
 			</nav>

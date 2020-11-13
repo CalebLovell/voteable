@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-	--h-content-area: calc(100vh - theme('height.20'));
+	--h-content-area: calc(100vh - theme('height.14'));
 	--base-primary: rgba(255, 255, 255, 1);
 	--base-secondary: rgb(0, 17, 20);
 	--accent-primary: rgba(255, 0, 27, 1);

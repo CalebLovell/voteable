@@ -7,7 +7,6 @@ interface Props {
 export const DarkModeButton: React.FC<Props> = ({ style }) => {
 	const { theme } = useGlobalState();
 	const globalDispatch = useGlobalDispatch();
-	console.log(theme);
 
 	const toggleDarkMode = () => {
 		if (theme === `dark`) globalDispatch({ type: `SET_THEME`, payload: `light` });
