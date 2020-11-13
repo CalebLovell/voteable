@@ -18,7 +18,13 @@ module.exports = {
 					primary: `var(--accent-primary)`,
 					secondary: `var(--accent-secondary)`,
 				},
-			}
+			},
+			height: {
+				content: `var(--h-content-area)`,
+			},
+			minHeight: {
+				content: `var(--h-content-area)`,
+			},
 		},
 	},
 	variants: {},
