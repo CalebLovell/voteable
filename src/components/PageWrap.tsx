@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const PageWrap: React.FC<Props> = ({ children }) => {
-	const { sideNavOpen } = useGlobalState();
+	const { mobileNavOpen } = useGlobalState();
 	return (
 		<>
 			<Head>
@@ -18,7 +18,7 @@ export const PageWrap: React.FC<Props> = ({ children }) => {
 				<link rel='stylesheet' href='https://rsms.me/inter/inter.css' />
 			</Head>
 			<NavBar />
-			{sideNavOpen ? <MobileMenu /> : null}
+			{mobileNavOpen ? <MobileMenu /> : null}
 			{children}
 		</>
 	);

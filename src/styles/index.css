@@ -2,13 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-:root,
-.theme-light {
+:root {
 	--base-primary: rgba(255, 255, 255, 1);
 	--base-secondary: rgba(0, 0, 0, 1);
 	--accent-primary: rgba(255, 0, 27, 1);
 	--accent-secondary: rgba(128, 0, 13, 1);
 	min-height: 100vh;
+}
+
+.theme-light {
+	--base-primary: rgba(255, 255, 255, 1);
+	--base-secondary: rgba(0, 0, 0, 1);
+	--accent-primary: rgba(255, 0, 27, 1);
+	--accent-secondary: rgba(128, 0, 13, 1);
 }
 
 .theme-dark {

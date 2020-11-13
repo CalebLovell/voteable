@@ -1,4 +1,5 @@
 import '../styles/index.css';
+
 import { GlobalProvider } from '@providers/GlobalProvider';
 import { PageWrap } from '@components/PageWrap';
 

@@ -42,7 +42,7 @@ module.exports = {
 		'max-nested-callbacks': [`error`, { max: 4 }],
 		'max-statements-per-line': [`error`, { max: 1 }],
 		'no-empty-function': `off`,
-		'no-explicit-any': `off`,
+		'@typescript-eslint/no-explicit-any': `off`,
 		'no-floating-decimal': `error`,
 		'no-multi-spaces': `error`,
 		'no-multiple-empty-lines': [`error`, { max: 2, maxEOF: 0, maxBOF: 0 }],

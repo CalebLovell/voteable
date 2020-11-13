@@ -4,15 +4,15 @@ const GlobalStateContext = createContext(null);
 const GlobalDispatchContext = createContext(null);
 
 const initialGlobalState = {
-	sideNavOpen: false,
+	mobileNavOpen: false,
 	theme: null,
 	searchQuery: ``,
 };
 
-const GlobalReducer = (state = initialGlobalState, action) => {
+const GlobalReducer = (state = initialGlobalState, action: { type: string; payload: string }) => {
 	switch (action.type) {
 		case `SET_MOBILE_NAV_OPEN`: {
-			return { ...state, sideNavOpen: action.payload };
+			return { ...state, mobileNavOpen: action.payload };
 		}
 		case `SET_THEME`: {
 			localStorage.setItem(`theme`, action.payload);
@@ -43,8 +43,8 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
 			localStorage.setItem(`theme`, `light`);
 		} else {
 			// No site level preference, so check for browser level preference
-			if (window.matchMedia('(prefers-color-scheme)').media !== 'not all') {
-				if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+			if (window.matchMedia(`(prefers-color-scheme)`).media !== `not all`) {
+				if (window.matchMedia(`(prefers-color-scheme: light)`).matches) {
 					dispatch({ type: `SET_THEME`, payload: `light` });
 					localStorage.setItem(`theme`, `light`);
 				} else {
@@ -78,7 +78,7 @@ export const GlobalProvider: React.FC<Props> = ({ children }) => {
 	);
 };
 
-export const useGlobalState = () => {
+export const useGlobalState = (): any => {
 	const context = useContext(GlobalStateContext);
 	if (context === undefined) {
 		throw new Error(`useGlobalState must be used within a GlobalProvider`);
@@ -86,7 +86,7 @@ export const useGlobalState = () => {
 	return context;
 };
 
-export const useGlobalDispatch = () => {
+export const useGlobalDispatch = (): any => {
 	const context = useContext(GlobalDispatchContext);
 	if (context === undefined) {
 		throw new Error(`useGlobalDispatch must be used within a GlobalProvider`);
