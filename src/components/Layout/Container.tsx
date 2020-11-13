@@ -1,15 +1,10 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 interface Props {
 	children: ReactNode;
-	outerStyle?: string;
-	innerStyle?: string;
+	style?: string;
 }
 
-export const Container: React.FC<Props> = ({ children, outerStyle = ``, innerStyle = `` }) => {
-	return (
-		<div className={`w-full flex justify-center ${outerStyle}`}>
-			<div className={`w-11/12 ${innerStyle}`}>{children}</div>
-		</div>
-	);
+export const Container: React.FC<Props> = ({ children, style = `` }) => {
+	return <div className={`px-6 md:px-20 ${style}`}>{children}</div>;
 };

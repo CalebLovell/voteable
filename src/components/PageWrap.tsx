@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
 import Head from 'next/head';
-import { NavBar } from '@components/Layout/NavBar';
 import { MobileMenu } from '@components/Layout/MobileMenu';
+import { NavBar } from '@components/Layout/NavBar';
+import { ReactNode } from 'react';
 import { useGlobalState } from '@providers/GlobalProvider';
 
 interface Props {

@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+:root,
+.theme-light {
 	--base-primary: rgba(255, 255, 255, 1);
 	--base-secondary: rgba(0, 0, 0, 1);
 	--accent-primary: rgba(255, 0, 27, 1);
@@ -10,16 +11,9 @@
 	min-height: 100vh;
 }
 
-.theme-light {
-	--base-primary: var(rgba(255, 255, 255, 1));
-	--base-secondary: var(rgba(0, 0, 0, 1));
-	--accent-primary: var(rgba(255, 0, 27, 1));
-	--accent-secondary: var(rgba(128, 0, 13, 1));
-}
-
 .theme-dark {
-	--base-primary: var(rgba(255, 255, 255, 1));
-	--base-secondary: var(rgba(0, 0, 0, 1));
+	--base-primary: var(rgba(0, 0, 0, 1));
+	--base-secondary: var(rgba(255, 255, 255, 1));
 	--accent-primary: var(rgba(255, 0, 27, 1));
 	--accent-secondary: var(rgba(128, 0, 13, 1));
 }

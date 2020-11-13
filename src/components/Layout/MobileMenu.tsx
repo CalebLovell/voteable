@@ -1,7 +1,7 @@
+import { InlineLink } from '@components/Common/InlineLink';
+import { LogoLink } from '@components/Common/LogoLink';
 import { MobileMenuButton } from '@components/Buttons/MobileMenuButton';
 import { useGlobalDispatch } from '@providers/GlobalProvider';
-import { Logo } from '@components/Common/Logo';
-import { InlineLink } from '@components/Common/InlineLink';
 
 const links = [
 	{ href: `/`, label: `Landing` },
@@ -17,8 +17,7 @@ export const MobileMenu: React.FC = () => {
 			<div className='rounded-lg shadow-lg'>
 				<div className='rounded-lg shadow-xs bg-white divide-y-2 divide-gray-50'>
 					<div className='pt-5 pb-6 px-5 space-y-6 sm:space-y-8 sm:pb-8'>
-						<div className='flex items-center justify-between'>
-							<Logo />
+						<div className='flex items-center justify-end'>
 							<MobileMenuButton />
 						</div>
 						<div>
