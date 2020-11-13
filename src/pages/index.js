@@ -2,8 +2,8 @@ import { Container } from '@components/Layout/Container';
 
 export default function LandingPage() {
 	return (
-		<Container>
-			<div className='bg-base-primary'>Voteable Landing Page</div>
+		<Container style='w-full min-h-full bg-base-primary'>
+			<div className='text-base-secondary'>Voteable Landing Page</div>
 		</Container>
 	);
 }
