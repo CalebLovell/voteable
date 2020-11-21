@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
-import { Polls } from '@interfaces/polls';
-import { db } from '@lib/firebase-admin';
+import { Polls } from '@utils/dataTypes';
+import { db } from '@utils/firebase-admin';
 
 export default async (_: Request, res: Response): Promise<Polls> => {
 	const snapshot = await db.collection(`polls`).get();
