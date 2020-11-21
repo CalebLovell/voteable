@@ -1,30 +1,30 @@
-export interface User {
-	id: string;
-	name: string;
-	email: string;
-}
+import { Timestamp } from '@firebase/firestore-types';
 
-type VotingSystems = `First Past The Post` | `Ranked Choice` | `Single Transferable`;
+export interface User {
+	name: string;
+	created_at: Timestamp;
+	updated_at: Timestamp;
+}
 
 interface Choice {
 	choice_id: string;
-	value: number;
+	title: string;
 }
 
 export interface Poll {
 	title: string;
 	description?: string;
-	type: VotingSystems;
+	type: `First Past The Post` | `Ranked Choice` | `Single Transferable`;
 	choices: Choice[];
 	user_id: string;
-	created_at: string;
+	created_at: Timestamp;
 }
 
 export interface Vote {
-	id: string;
 	user_id: string;
 	poll_id: string;
 	choice_id: string;
+	created_at: Timestamp;
 }
 
 export type Users = User[];
