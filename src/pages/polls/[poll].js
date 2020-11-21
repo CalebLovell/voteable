@@ -1,5 +1,14 @@
 import { Container } from '@components/Layout/Container';
 
+// This gets called on every request
+export async function getServerSideProps() {
+	const res = await fetch(`/api/polls/${poll}`);
+	const data = await res.json();
+
+	// Pass data to the page via props
+	return { props: { data } };
+}
+
 export default function PollPage() {
 	return (
 		<Container style='w-full min-h-content bg-base-primary flex justify-center'>

@@ -1,15 +1,17 @@
-import { Response } from 'express';
+import { NextApiRequest, NextApiResponse } from 'next';
+
 import { db } from '@utils/firebase-admin';
 
-export default async (res: Response): Promise<void> => {
+export default async (_: NextApiRequest, res: NextApiResponse): Promise<void> => {
 	try {
-		const snapshot = await db.collection(`polls`).get();
+		const pollsRef = db.collection(`polls`);
+		const snapshot = await pollsRef.get();
 		const polls = [];
 		snapshot.forEach(doc => {
 			polls.push({ id: doc.id, ...doc.data() });
 		});
 		res.status(200).json(polls);
 	} catch (error) {
-		res.status(500).send(error);
+		res.status(500).json({ error });
 	}
 };

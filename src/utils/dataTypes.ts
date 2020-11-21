@@ -18,6 +18,7 @@ export interface Poll {
 	choices: Choice[];
 	user_id: string;
 	created_at: Timestamp;
+	expiration: Timestamp;
 }
 
 export interface Vote {
