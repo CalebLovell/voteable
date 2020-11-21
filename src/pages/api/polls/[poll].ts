@@ -14,5 +14,13 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> 
 		} catch (error) {
 			res.status(500).json({ error });
 		}
+	} else if (req.method === `GET`) {
+		try {
+			const pollsRef = db.collection(`polls`);
+			const pollSnapshot = await pollsRef.doc(`${req.query.poll}`).get();
+			res.status(200).json(pollSnapshot.data());
+		} catch (error) {
+			res.status(500).json({ error });
+		}
 	}
 };
