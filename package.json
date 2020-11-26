@@ -10,7 +10,8 @@
 		"start": "next start",
 		"pretty": "prettier src --write",
 		"linty": "eslint src --fix",
-		"typescripty": "tsc src"
+		"ts": "tsc",
+		"clean": "yarn pretty && yarn linty && yarn ts"
 	},
 	"dependencies": {
 		"@tailwindcss/ui": "^0.7.2",
