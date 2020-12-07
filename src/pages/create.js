@@ -28,7 +28,7 @@ export default function CreatePage() {
 					<label htmlFor='title' className='block text-sm font-medium leading-5 text-gray-700'>
 						Title
 					</label>
-					<span className='text-sm leading-5 text-gray-500' id='description-required'>
+					<span className='text-sm leading-5 text-gray-500 cursor-default italic' id='description-required'>
 						Required
 					</span>
 				</div>
@@ -49,7 +49,7 @@ export default function CreatePage() {
 					<label htmlFor='description' className='block text-sm font-medium leading-5 text-gray-700'>
 						Description
 					</label>
-					<span className='text-sm leading-5 text-gray-500' id='description-optional'>
+					<span className='text-sm leading-5 text-gray-500 cursor-default italic' id='description-optional'>
 						Optional
 					</span>
 				</div>
@@ -74,7 +74,7 @@ export default function CreatePage() {
 					<button type='button' onClick={() => append({ title: ``, value: 0 })}>
 						append
 					</button>
-					<span className='text-sm leading-5 text-gray-500' id='choices-required'>
+					<span className='text-sm leading-5 text-gray-500 cursor-default italic' id='choices-required'>
 						Required
 					</span>
 				</div>
