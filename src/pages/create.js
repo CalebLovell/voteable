@@ -20,8 +20,8 @@ export default function CreatePage() {
 
 	return (
 		<Container style='w-full min-h-content bg-base-primary flex items-center'>
-			<form className='bg-white w-1/2 py-8 px-4 shadow sm:rounded-lg sm:px-10' onSubmit={handleSubmit(onSubmit)}>
-				<h1 className='text-base-primary text-center'>Add a Poll</h1>
+			<form className='w-1/2 px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10' onSubmit={handleSubmit(onSubmit)}>
+				<h1 className='text-center text-base-primary'>Add a Poll</h1>
 
 				{/* Title */}
 				<div className='flex justify-between'>
@@ -29,12 +29,12 @@ export default function CreatePage() {
 						Title
 					</label>
 				</div>
-				<div className='mt-1 relative rounded-md shadow-sm'>
+				<div className='relative mt-1 rounded-md shadow-sm'>
 					<input
 						id='title'
 						name='title'
 						defaultValue=''
-						className='form-input block w-full sm:text-sm sm:leading-5'
+						className='block w-full form-input sm:text-sm sm:leading-5'
 						placeholder='Add a title here...'
 						ref={register}
 						required
@@ -46,17 +46,17 @@ export default function CreatePage() {
 					<label htmlFor='description' className='block text-sm font-medium leading-5 text-gray-700'>
 						Description
 					</label>
-					<span className='text-sm leading-5 text-gray-500 cursor-default italic' id='description-optional'>
+					<span className='text-sm italic leading-5 text-gray-500 cursor-default' id='description-optional'>
 						Optional
 					</span>
 				</div>
-				<div className='mt-1 relative rounded-md shadow-sm'>
+				<div className='relative mt-1 rounded-md shadow-sm'>
 					<textarea
 						id='description'
 						name='description'
 						defaultValue=''
 						rows='3'
-						className='form-input block w-full sm:text-sm sm:leading-5'
+						className='block w-full form-input sm:text-sm sm:leading-5'
 						placeholder='Add a description here...'
 						aria-describedby='description-optional'
 						ref={register}
@@ -81,11 +81,11 @@ export default function CreatePage() {
 				</div>
 				{fields.map((item, index) => (
 					<div key={item.id}>
-						<div className='flex justify-between items-center'>
-							<div className='w-full mt-1 relative rounded-md shadow-sm'>
+						<div className='flex items-center justify-between'>
+							<div className='relative w-full mt-1 rounded-md shadow-sm'>
 								<input
 									id='choice'
-									className='form-input block w-full sm:text-sm sm:leading-5'
+									className='block w-full form-input sm:text-sm sm:leading-5'
 									placeholder='Add a choice here...'
 									required
 									name={`choices[${index}].title`}
@@ -98,14 +98,14 @@ export default function CreatePage() {
 					</div>
 				))}
 
-				<label htmlFor='type' className='block text-sm leading-5 font-medium text-gray-700'>
+				<label htmlFor='type' className='block text-sm font-medium leading-5 text-gray-700'>
 					Voting System
 				</label>
 				<select
 					id='type'
 					name='type'
 					defaultValue=''
-					className='mt-1 form-select block w-full pl-3 pr-10 py-2 text-base leading-6 border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5'
+					className='block w-full py-2 pl-3 pr-10 mt-1 text-base leading-6 border-gray-300 form-select focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5'
 					required
 					ref={register}
 				>
@@ -115,7 +115,7 @@ export default function CreatePage() {
 				</select>
 				<button
 					type='button'
-					className='inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+					className='inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
 				>
 					Submit
 				</button>

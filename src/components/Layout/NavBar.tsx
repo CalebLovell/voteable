@@ -8,14 +8,14 @@ import { MobileMenuButton } from '@components/Buttons/MobileMenuButton';
 export const NavBar: React.FC = () => {
 	return (
 		<Container style='bg-base-primary h-14'>
-			<div className='h-full flex justify-between items-center md:hidden'>
+			<div className='flex items-center justify-between h-full md:hidden'>
 				<MobileMenuButton />
 				<div className='flex items-center space-x-2'>
 					<LanguageButton />
 					<DarkModeButton />
 				</div>
 			</div>
-			<nav className='h-full hidden md:flex justify-between items-center'>
+			<nav className='items-center justify-between hidden h-full md:flex'>
 				<div className='flex items-center'>
 					<LogoLink />
 					<InlineLink href='/create' label='Create' />

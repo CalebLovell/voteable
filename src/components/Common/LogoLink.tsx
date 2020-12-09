@@ -11,7 +11,7 @@ export const LogoLink: React.FC<Props> = ({ style }) => {
 				href='/'
 				className={`px-2 lg:px-4 py-1 text-accent-primary hover:text-accent-secondary font-medium transition ease-in-out duration-150 flex items-center ${style}`}
 			>
-				<svg className='w-8 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+				<svg className='inline w-8' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
 					<path
 						strokeLinecap='round'
 						strokeLinejoin='round'
