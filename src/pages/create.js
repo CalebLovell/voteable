@@ -28,9 +28,6 @@ export default function CreatePage() {
 					<label htmlFor='title' className='block text-sm font-medium leading-5 text-gray-700'>
 						Title
 					</label>
-					<span className='text-sm leading-5 text-gray-500 cursor-default italic' id='description-required'>
-						Required
-					</span>
 				</div>
 				<div className='mt-1 relative rounded-md shadow-sm'>
 					<input
@@ -68,35 +65,36 @@ export default function CreatePage() {
 
 				{/* Choices */}
 				<div className='flex justify-between'>
-					<label htmlFor='choices' className='block text-sm font-medium leading-5 text-gray-700'>
+					<label id='choices' htmlFor='choices' className='block text-sm font-medium leading-5 text-gray-700'>
 						Choices
 					</label>
 					<button type='button' onClick={() => append({ title: ``, value: 0 })}>
-						append
+						<svg className='w-3 h-3' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+							<path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M12 6v6m0 0v6m0-6h6m-6 0H6' />
+						</svg>
 					</button>
-					<span className='text-sm leading-5 text-gray-500 cursor-default italic' id='choices-required'>
-						Required
-					</span>
+					<button type='button' onClick={() => remove(index)}>
+						<svg className='w-3 h-3' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+							<path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M20 12H4' />
+						</svg>
+					</button>
 				</div>
 				{fields.map((item, index) => (
 					<div key={item.id}>
-						<label htmlFor='choice' className='block text-sm font-medium leading-5 text-gray-700'>
-							Choice 1
-						</label>
-						<div className='mt-1 relative rounded-md shadow-sm'>
-							<input
-								id='choice'
-								className='form-input block w-full sm:text-sm sm:leading-5'
-								placeholder='Add a choice here...'
-								required
-								name={`choices[${index}].title`}
-								defaultValue={`${item.title}`}
-								ref={register()}
-							/>
+						<div className='flex justify-between items-center'>
+							<div className='w-full mt-1 relative rounded-md shadow-sm'>
+								<input
+									id='choice'
+									className='form-input block w-full sm:text-sm sm:leading-5'
+									placeholder='Add a choice here...'
+									required
+									name={`choices[${index}].title`}
+									defaultValue={`${item.title}`}
+									ref={register()}
+									aria-labelledby='choices'
+								/>
+							</div>
 						</div>
-						<button type='button' onClick={() => remove(index)}>
-							Delete
-						</button>
 					</div>
 				))}
 
@@ -115,7 +113,12 @@ export default function CreatePage() {
 					<option>Ranked Choice</option>
 					<option>Single Transferable</option>
 				</select>
-				<button type='submit'>Submit</button>
+				<button
+					type='button'
+					className='inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+				>
+					Submit
+				</button>
 			</form>
 		</Container>
 	);
