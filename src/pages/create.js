@@ -5,7 +5,7 @@ export default function CreatePage() {
 		defaultValues: {
 			title: ``,
 			description: ``,
-			choices: [{ title: `A Choice` }],
+			choices: [{ choice: `` }, { choice: `` }, { choice: `` }],
 			type: ``,
 		},
 	});
@@ -18,7 +18,7 @@ export default function CreatePage() {
 
 	return (
 		<main className='container flex items-center justify-center w-full min-h-content bg-base-primary'>
-			<form className='w-2/3 px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10' onSubmit={handleSubmit(onSubmit)}>
+			<form className='w-full px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10' onSubmit={handleSubmit(onSubmit)}>
 				<h1 className='text-xl font-bold text-center'>Add a Poll</h1>
 
 				{/* Title */}
@@ -66,7 +66,7 @@ export default function CreatePage() {
 					<button
 						className='inline-flex items-center rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
 						type='button'
-						onClick={() => append({ title: ``, value: 0 })}
+						onClick={() => append({ choice: `` })}
 					>
 						<svg className='w-4 text-gray-600' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
 							<path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M12 6v6m0 0v6m0-6h6m-6 0H6' />
@@ -81,8 +81,8 @@ export default function CreatePage() {
 							className='block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
 							placeholder='Add a choice here...'
 							required
-							name={`choices[${index}].title`}
-							defaultValue={`${item.title}`}
+							name={`choices[${index}].choice`}
+							defaultValue={`${item.choice}`}
 							ref={register()}
 							aria-labelledby='choices'
 						/>
@@ -98,23 +98,25 @@ export default function CreatePage() {
 					</div>
 				))}
 
+				{/* Voting System */}
 				<label htmlFor='type' className='block mt-4 text-sm font-bold text-gray-700'>
 					Voting System
 				</label>
 				<select
 					id='type'
 					name='type'
-					selected='selected'
+					defaultValue='First Past The Post'
 					className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
 					required
 					ref={register}
 				>
-					<option selected>First Past The Post</option>
+					<option>First Past The Post</option>
 					<option>Ranked Choice</option>
 					<option>Single Transferable</option>
 				</select>
+
 				<button
-					type='button'
+					type='submit'
 					className='inline-flex items-center px-3 py-2 mt-4 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
 				>
 					Submit
