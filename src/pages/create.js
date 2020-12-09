@@ -24,39 +24,36 @@ export default function CreatePage() {
 				<h1 className='text-center text-base-primary'>Add a Poll</h1>
 
 				{/* Title */}
-				<div className='flex justify-between'>
-					<label htmlFor='title' className='block text-sm font-medium leading-5 text-gray-700'>
-						Title
-					</label>
-				</div>
-				<div className='relative mt-1 rounded-md shadow-sm'>
-					<input
-						id='title'
-						name='title'
-						defaultValue=''
-						className='block w-full form-input sm:text-sm sm:leading-5'
-						placeholder='Add a title here...'
-						ref={register}
-						required
-					/>
-				</div>
+				<label htmlFor='title' className='block text-sm font-medium text-gray-700'>
+					Title
+				</label>
+				<input
+					type='text'
+					id='title'
+					name='title'
+					defaultValue=''
+					className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+					placeholder='Add a title here...'
+					ref={register}
+					required
+				/>
 
 				{/* Description */}
 				<div className='flex justify-between'>
-					<label htmlFor='description' className='block text-sm font-medium leading-5 text-gray-700'>
+					<label htmlFor='description' className='block text-sm font-medium text-gray-700'>
 						Description
 					</label>
-					<span className='text-sm italic leading-5 text-gray-500 cursor-default' id='description-optional'>
+					<span className='text-sm italic text-gray-500 cursor-default' id='description-optional'>
 						Optional
 					</span>
 				</div>
-				<div className='relative mt-1 rounded-md shadow-sm'>
+				<div className='mt-1'>
 					<textarea
 						id='description'
 						name='description'
 						defaultValue=''
 						rows='3'
-						className='block w-full form-input sm:text-sm sm:leading-5'
+						className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
 						placeholder='Add a description here...'
 						aria-describedby='description-optional'
 						ref={register}
@@ -65,7 +62,7 @@ export default function CreatePage() {
 
 				{/* Choices */}
 				<div className='flex justify-between'>
-					<label id='choices' htmlFor='choices' className='block text-sm font-medium leading-5 text-gray-700'>
+					<label id='choices' htmlFor='choices' className='block text-sm font-medium text-gray-700'>
 						Choices
 					</label>
 					<button type='button' onClick={() => append({ title: ``, value: 0 })}>
@@ -80,32 +77,28 @@ export default function CreatePage() {
 					</button>
 				</div>
 				{fields.map((item, index) => (
-					<div key={item.id}>
-						<div className='flex items-center justify-between'>
-							<div className='relative w-full mt-1 rounded-md shadow-sm'>
-								<input
-									id='choice'
-									className='block w-full form-input sm:text-sm sm:leading-5'
-									placeholder='Add a choice here...'
-									required
-									name={`choices[${index}].title`}
-									defaultValue={`${item.title}`}
-									ref={register()}
-									aria-labelledby='choices'
-								/>
-							</div>
-						</div>
-					</div>
+					<input
+						key={item.id}
+						type='text'
+						id='choice'
+						className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+						placeholder='Add a choice here...'
+						required
+						name={`choices[${index}].title`}
+						defaultValue={`${item.title}`}
+						ref={register()}
+						aria-labelledby='choices'
+					/>
 				))}
 
-				<label htmlFor='type' className='block text-sm font-medium leading-5 text-gray-700'>
+				<label htmlFor='type' className='block text-sm font-medium text-gray-700'>
 					Voting System
 				</label>
 				<select
 					id='type'
 					name='type'
-					defaultValue=''
-					className='block w-full py-2 pl-3 pr-10 mt-1 text-base leading-6 border-gray-300 form-select focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5'
+					selected='selected'
+					className='block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
 					required
 					ref={register}
 				>
