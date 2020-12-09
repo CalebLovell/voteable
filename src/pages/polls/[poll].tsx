@@ -1,6 +1,5 @@
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 
-import { Container } from '@components/Layout/Container';
 import { Poll } from '@utils/dataTypes';
 
 // This gets called on every request
@@ -20,7 +19,7 @@ interface Props {
 
 const PollPage: React.FC<Props> = ({ poll }): JSX.Element => {
 	return (
-		<Container style='w-full min-h-content bg-base-primary flex justify-center'>
+		<main className='container flex justify-center w-full min-h-content bg-base-primary'>
 			<fieldset className='mt-6'>
 				<legend className='text-base font-medium leading-6 text-gray-900'>{poll.title}</legend>
 				<p className='text-sm leading-5 text-gray-500'>{poll.description}</p>
@@ -43,7 +42,7 @@ const PollPage: React.FC<Props> = ({ poll }): JSX.Element => {
 				</div>
 				<button>Vote</button>
 			</fieldset>
-		</Container>
+		</main>
 	);
 };
 

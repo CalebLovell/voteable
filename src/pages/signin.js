@@ -1,8 +1,6 @@
-import { Container } from '@components/Layout/Container';
-
 export default function PollPage() {
 	return (
-		<Container>
+		<main className='container'>
 			<div className='flex flex-col justify-center min-h-screen py-12 bg-gray-50 sm:px-6 lg:px-8'>
 				<div className='sm:mx-auto sm:w-full sm:max-w-md'>
 					<img className='w-auto h-12 mx-auto' src='https://tailwindui.com/img/logos/v1/workflow-mark-on-white.svg' alt='Workflow' />
@@ -148,6 +146,6 @@ export default function PollPage() {
 					</div>
 				</div>
 			</div>
-		</Container>
+		</main>
 	);
 }

@@ -1,4 +1,3 @@
-import { Container } from '@components/Layout/Container';
 import { DarkModeButton } from '@components/Buttons/DarkModeButton';
 import { InlineLink } from '@components/Common/InlineLink';
 import { LanguageButton } from '@components/Buttons/LanguageButton';
@@ -7,7 +6,7 @@ import { MobileMenuButton } from '@components/Buttons/MobileMenuButton';
 
 export const NavBar: React.FC = () => {
 	return (
-		<Container style='bg-base-primary h-14'>
+		<div className='container bg-base-primary h-14'>
 			<div className='flex items-center justify-between h-full md:hidden'>
 				<MobileMenuButton />
 				<div className='flex items-center space-x-2'>
@@ -33,6 +32,6 @@ export const NavBar: React.FC = () => {
 					</div>
 				</div>
 			</nav>
-		</Container>
+		</div>
 	);
 };

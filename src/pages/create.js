@@ -1,7 +1,5 @@
 import { useFieldArray, useForm } from 'react-hook-form';
 
-import { Container } from '@components/Layout/Container';
-
 export default function CreatePage() {
 	const { register, control, handleSubmit } = useForm({
 		defaultValues: {
@@ -19,8 +17,8 @@ export default function CreatePage() {
 	const onSubmit = data => console.log(data);
 
 	return (
-		<Container style='w-full min-h-content bg-base-primary flex items-center'>
-			<form className='w-1/2 px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10' onSubmit={handleSubmit(onSubmit)}>
+		<main className='container flex items-center justify-center w-full min-h-content bg-base-primary'>
+			<form className='w-2/3 px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10' onSubmit={handleSubmit(onSubmit)}>
 				<h1 className='text-center text-base-primary'>Add a Poll</h1>
 
 				{/* Title */}
@@ -113,6 +111,6 @@ export default function CreatePage() {
 					Submit
 				</button>
 			</form>
-		</Container>
+		</main>
 	);
 }

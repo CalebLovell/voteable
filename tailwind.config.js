@@ -4,6 +4,9 @@ const defaultTheme = require(`tailwindcss/defaultTheme`);
 
 module.exports = {
 	purge: [`./src/**/*.{js,ts,jsx,tsx}`],
+	corePlugins: {
+		container: false,
+	},
 	theme: {
 		extend: {
 			fontFamily: {
@@ -28,5 +31,34 @@ module.exports = {
 		},
 	},
 	variants: {},
-	plugins: [require(`@tailwindcss/forms`)],
+	plugins: [
+		require(`@tailwindcss/forms`),
+		function ({ addComponents }) {
+			addComponents({
+				'.container': {
+					width: `100%`,
+					marginLeft: `auto`,
+					marginRight: `auto`,
+					paddingLeft: `1rem`,
+					paddingRight: `1rem`,
+					'@screen sm': {
+						paddingLeft: `1.5rem`,
+						paddingRight: `1.5rem`,
+					},
+					'@screen md': {
+						paddingLeft: `3rem`,
+						paddingRight: `3rem`,
+					},
+					'@screen lg': {
+						paddingLeft: `6rem`,
+						paddingRight: `6rem`,
+					},
+					'@screen xl': {
+						paddingLeft: `9rem`,
+						paddingRight: `9rem`,
+					},
+				},
+			});
+		},
+	],
 };
