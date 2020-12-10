@@ -8,8 +8,6 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
 	return { props: { poll: data } };
 };
 
-// http://localhost:3000/polls/zHvJssTJ3Goqyemz60T4
-
 interface Props {
 	poll: Poll;
 }
