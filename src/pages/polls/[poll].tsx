@@ -2,12 +2,9 @@ import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 
 import { Poll } from '@utils/dataTypes';
 
-// This gets called on every request
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
 	const res = await fetch(`http://localhost:3000/api/polls/${context.params.poll}`);
 	const data = await res.json();
-
-	// Pass data to the page via props
 	return { props: { poll: data } };
 };
 
