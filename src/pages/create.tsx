@@ -4,6 +4,8 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import { pollSchema } from '@utils/dataSchemas';
 
 export default function CreatePage(): JSX.Element {
+	const user_id = `0ngT8eAMT9mNH5qyqSem`;
+
 	const { register, control, handleSubmit } = useForm({
 		defaultValues: {
 			title: ``,
@@ -15,8 +17,20 @@ export default function CreatePage(): JSX.Element {
 	const { fields, append, remove } = useFieldArray({ control, name: `choices` });
 
 	const onSubmit = (data: unknown) => {
+		data.user_id = user_id;
 		try {
 			assert(data, pollSchema);
+			const postData = async () => {
+				const res = await fetch(`http://localhost:3000/api/polls`, {
+					method: `POST`,
+					headers: { 'Content-Type': `application/json` },
+					body: JSON.stringify(data),
+					mode: `cors`,
+					referrerPolicy: `no-referrer`,
+				});
+				return res;
+			};
+			postData();
 		} catch (error) {
 			if (error instanceof StructError) {
 				switch (error.key) {

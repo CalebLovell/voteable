@@ -13,4 +13,5 @@ export const pollSchema = object({
 		10
 	),
 	type: size(string(), 1, 100),
+	user_id: size(string(), 20, 20)
 });
