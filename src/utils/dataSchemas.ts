@@ -1,8 +1,8 @@
 import { array, object, optional, size, string } from 'superstruct';
 
-export const newPoll = object({
+export const pollSchema = object({
 	title: size(string(), 1, 100),
-	description: optional(size(string(), 1, 300)),
+	description: optional(size(string(), 1, 500)),
 	choices: size(
 		array(
 			object({

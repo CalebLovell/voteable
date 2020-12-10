@@ -1,7 +1,7 @@
 import { StructError, assert } from 'superstruct';
 import { useFieldArray, useForm } from 'react-hook-form';
 
-import { newPoll } from '@utils/dataSchemas';
+import { pollSchema } from '@utils/dataSchemas';
 
 export default function CreatePage(): JSX.Element {
 	const { register, control, handleSubmit } = useForm({
@@ -12,21 +12,18 @@ export default function CreatePage(): JSX.Element {
 			type: ``,
 		},
 	});
-	const { fields, append, remove } = useFieldArray({
-		control,
-		name: `choices`,
-	});
+	const { fields, append, remove } = useFieldArray({ control, name: `choices` });
 
 	const onSubmit = (data: unknown) => {
 		try {
-			assert(data, newPoll);
+			assert(data, pollSchema);
 		} catch (error) {
 			if (error instanceof StructError) {
 				switch (error.key) {
 					case `title`:
 						throw new Error(`Please enter a title that is no more than 100 characters long.`);
 					case `description`:
-						throw new Error(`Please enter a description that is no more than 300 characters long.`);
+						throw new Error(`Please enter a description that is no more than 500 characters long.`);
 					case `choices`:
 						throw new Error(`Please enter between 2 and 10 choices, no more than 100 characters long.`);
 					case `type`:
@@ -40,11 +37,11 @@ export default function CreatePage(): JSX.Element {
 
 	return (
 		<main className='container flex items-center justify-center w-full min-h-content bg-base-primary'>
-			<form className='w-full px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10' onSubmit={handleSubmit(onSubmit)}>
-				<h1 className='text-xl font-bold text-center'>Add a Poll</h1>
+			<form className='w-full px-4 py-8 border border-gray-300 sm:rounded-lg sm:px-10' onSubmit={handleSubmit(onSubmit)}>
+				<h1 className='text-xl font-bold text-center text-base-secondary'>Add a Poll</h1>
 
 				{/* Title */}
-				<label htmlFor='title' className='block text-sm font-bold text-gray-700'>
+				<label htmlFor='title' className='block text-sm font-semibold text-base-secondary'>
 					Title
 				</label>
 				<input
@@ -60,10 +57,10 @@ export default function CreatePage(): JSX.Element {
 
 				{/* Description */}
 				<div className='flex justify-between mt-4'>
-					<label htmlFor='description' className='block text-sm font-bold text-gray-700'>
+					<label htmlFor='description' className='block text-sm font-semibold text-base-secondary'>
 						Description
 					</label>
-					<span className='text-sm italic text-gray-500 cursor-default' id='description-optional'>
+					<span className='text-sm italic cursor-default text-base-secondary' id='description-optional'>
 						Optional
 					</span>
 				</div>
@@ -72,7 +69,7 @@ export default function CreatePage(): JSX.Element {
 						id='description'
 						name='description'
 						defaultValue=''
-						rows='3'
+						rows={3}
 						className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
 						placeholder='Add a description here...'
 						aria-describedby='description-optional'
@@ -82,7 +79,7 @@ export default function CreatePage(): JSX.Element {
 
 				{/* Choices */}
 				<div className='flex mt-4'>
-					<label id='choices' htmlFor='choices' className='inline-flex text-sm font-bold text-gray-700'>
+					<label id='choices' htmlFor='choices' className='inline-flex text-sm font-semibold text-base-secondary'>
 						Choices
 					</label>
 					<button
@@ -90,7 +87,7 @@ export default function CreatePage(): JSX.Element {
 						type='button'
 						onClick={() => append({ choice: `` })}
 					>
-						<svg className='w-4 text-gray-600' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+						<svg className='w-4 text-base-secondary' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
 							<path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M12 6v6m0 0v6m0-6h6m-6 0H6' />
 						</svg>
 					</button>
@@ -121,7 +118,7 @@ export default function CreatePage(): JSX.Element {
 				))}
 
 				{/* Voting System */}
-				<label htmlFor='type' className='block mt-4 text-sm font-bold text-gray-700'>
+				<label htmlFor='type' className='block mt-4 text-sm font-semibold text-base-secondary'>
 					Voting System
 				</label>
 				<select
@@ -139,7 +136,7 @@ export default function CreatePage(): JSX.Element {
 
 				<button
 					type='submit'
-					className='inline-flex items-center px-3 py-2 mt-3 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+					className='inline-flex items-center px-3 py-2 mt-3 text-sm font-medium leading-4 text-black bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
 				>
 					Submit
 				</button>
