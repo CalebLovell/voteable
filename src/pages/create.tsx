@@ -1,6 +1,9 @@
+import { StructError, assert } from 'superstruct';
 import { useFieldArray, useForm } from 'react-hook-form';
 
-export default function CreatePage() {
+import { newPoll } from '@utils/dataSchemas';
+
+export default function CreatePage(): JSX.Element {
 	const { register, control, handleSubmit } = useForm({
 		defaultValues: {
 			title: ``,
@@ -14,7 +17,26 @@ export default function CreatePage() {
 		name: `choices`,
 	});
 
-	const onSubmit = data => console.log(data);
+	const onSubmit = (data: unknown) => {
+		try {
+			assert(data, newPoll);
+		} catch (error) {
+			if (error instanceof StructError) {
+				switch (error.key) {
+					case `title`:
+						throw new Error(`Please enter a title that is no more than 100 characters long.`);
+					case `description`:
+						throw new Error(`Please enter a description that is no more than 300 characters long.`);
+					case `choices`:
+						throw new Error(`Please enter between 2 and 10 choices, no more than 100 characters long.`);
+					case `type`:
+						throw new Error(`Please choose a type of voting system.`);
+					default:
+						throw new Error(`An unexpected error occured. Sorry about that! The devs have been notified. Please try again later!`);
+				}
+			} else throw new Error(`An unexpected error occured. Sorry about that! The devs have been notified. Please try again later!`);
+		}
+	};
 
 	return (
 		<main className='container flex items-center justify-center w-full min-h-content bg-base-primary'>
@@ -80,10 +102,10 @@ export default function CreatePage() {
 							id='choice'
 							className='block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
 							placeholder='Add a choice here...'
-							required
 							name={`choices[${index}].choice`}
 							defaultValue={`${item.choice}`}
 							ref={register()}
+							required
 							aria-labelledby='choices'
 						/>
 						<button
@@ -117,7 +139,7 @@ export default function CreatePage() {
 
 				<button
 					type='submit'
-					className='inline-flex items-center px-3 py-2 mt-4 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+					className='inline-flex items-center px-3 py-2 mt-3 text-sm font-medium leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
 				>
 					Submit
 				</button>
