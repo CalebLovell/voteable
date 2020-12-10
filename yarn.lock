@@ -2444,10 +2444,10 @@ cache-base@^1.0.1:
     union-value "^1.0.0"
     unset-value "^1.0.0"
 
-caleb-tw-plugins@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/caleb-tw-plugins/-/caleb-tw-plugins-1.0.1.tgz#e5dcdd3079f10ed6281c021fda1ebebfa8190ca4"
-  integrity sha512-R3ZE8a12HReYc7O7DHUdovgCdtvnh6jFz+y9u4RNkOOBS7XAoA4gNP5XHRSzze32DAIbU8qMXp5wE63j//AeXg==
+caleb-tw-plugins@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/caleb-tw-plugins/-/caleb-tw-plugins-1.0.2.tgz#24546e5b4d0f6d81e14526568abea9e6896dd8c0"
+  integrity sha512-fKfCqdezP/CVDgWaOWEew9MRzcUHAx3K3H7bhVMrUdVmpT9Zfky9MEBezQkgwx2EJrp+7fbif7bP+Hbv0RCBrQ==
 
 call-bind@^1.0.0:
   version "1.0.0"
