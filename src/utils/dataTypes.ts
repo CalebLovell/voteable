@@ -12,6 +12,7 @@ interface Choice {
 }
 
 export interface Poll {
+	id: string;
 	title: string;
 	description?: string;
 	type: `First Past The Post` | `Ranked Choice` | `Single Transferable`;
