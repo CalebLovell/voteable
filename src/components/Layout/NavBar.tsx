@@ -18,7 +18,7 @@ export const NavBar: React.FC = () => {
 				<div className='flex items-center'>
 					<LogoLink />
 					<InlineLink href='/create' label='Create' />
-					<InlineLink href='/poll' label='Poll' />
+					<InlineLink href='/polls/zHvJssTJ3Goqyemz60T4' label='Poll' />
 					<InlineLink href='/result' label='Result' />
 				</div>
 				<div className='flex items-center md:space-x-2 lg:space-x-10'>

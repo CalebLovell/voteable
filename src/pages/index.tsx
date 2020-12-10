@@ -1,6 +1,7 @@
 import { Poll, Polls } from '@utils/dataTypes';
 
 import { GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
 
 export const getStaticProps: GetStaticProps = async () => {
 	const res = await fetch(`http://localhost:3000/api/polls`);
@@ -13,6 +14,7 @@ interface Props {
 }
 
 const LandingPage: React.FC<Props> = ({ polls }): JSX.Element => {
+	const router = useRouter();
 	const sortedPolls = () => {
 		return polls.sort((a: Poll, b: Poll) => {
 			if (a.created_at > b.created_at) return 1;
@@ -26,11 +28,11 @@ const LandingPage: React.FC<Props> = ({ polls }): JSX.Element => {
 			<h1>Most recent polls:</h1>
 			<section>
 				{sortedPolls().map(poll => (
-					<div key={poll.id} className='mb-4 border-2 border-indigo-500'>
+					<button key={poll.id} className='mb-4 border-2 border-indigo-500' onClick={() => router.push(`/polls/${poll.id}`)}>
 						<p>{poll.title}</p>
 						<p>{poll.description}</p>
 						<p>{poll.type}</p>
-					</div>
+					</button>
 				))}
 			</section>
 		</main>
