@@ -1,32 +1,22 @@
-import { array, boolean, object, optional, refine, size, string } from 'superstruct';
+import { Describe, array, enums, nullable, object, size, string } from 'superstruct';
 
-const titleStruct = size(string(), 1, 100);
+import { NewPoll } from './dataTypes';
 
-const descriptionStruct = optional(size(string(), 1, 500));
+const titleStruct = string();
 
-const choicesStruct = size(
-	array(
-		object({
-			choice: size(string(), 1, 100),
-		})
-	),
-	1,
-	10
-);
+const descriptionStruct = nullable(string());
 
-const votingTypesStruct = refine(
+const choicesStruct = array(
 	object({
-		firstPastThePost: boolean(),
-		rankedChoice: boolean(),
-		singleTransferable: boolean(),
-	}),
-	`types`,
-	value => value.firstPastThePost === true || value.rankedChoice === true || value.singleTransferable === true
+		choice: string(),
+	})
 );
 
-const userStruct = size(string(), 20, 20);
+const votingTypesStruct = array(enums([`First Past The Post`, `Ranked Choice`, `Single Transferable`]));
 
-export const pollSchema = object({
+const userStruct = string();
+
+export const pollSchema: Describe<NewPoll> = object({
 	title: titleStruct,
 	description: descriptionStruct,
 	choices: choicesStruct,
