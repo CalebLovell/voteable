@@ -11,12 +11,18 @@ interface Choice {
 	title: string;
 }
 
+interface VotingTypes {
+	firstPastThePost: boolean;
+	rankedChoice: boolean;
+	singleTransferable: boolean;
+}
+
 export interface Poll {
 	id: string;
 	title: string;
 	description?: string;
-	type: `First Past The Post` | `Ranked Choice` | `Single Transferable`;
 	choices: Choice[];
+	types: VotingTypes;
 	user_id: string;
 	created_at: Timestamp;
 	expiration: Timestamp;
