@@ -1,6 +1,9 @@
 import { StructError, assert } from 'superstruct';
 import { useFieldArray, useForm } from 'react-hook-form';
 
+import { Checkbox } from '@components/Inputs/Checkbox';
+import { Input } from '@components/Inputs/Input';
+import { Textarea } from '@components/Inputs/Textarea';
 import { pollSchema } from '@utils/dataSchemas';
 
 export default function CreatePage(): JSX.Element {
@@ -51,47 +54,10 @@ export default function CreatePage(): JSX.Element {
 
 	return (
 		<main className='container flex items-center justify-center w-full min-h-content bg-base-primary'>
-			<form className='w-full px-4 py-8 border border-gray-300 sm:rounded-lg sm:px-10' onSubmit={handleSubmit(onSubmit)}>
+			<form className='w-full px-4 py-8 my-12 border border-gray-300 md:w-2/3 sm:rounded-lg sm:px-10' onSubmit={handleSubmit(onSubmit)}>
 				<h1 className='text-xl font-bold text-center text-base-secondary'>Add a Poll</h1>
-
-				{/* Title */}
-				<label htmlFor='title' className='block text-sm font-semibold text-base-secondary'>
-					Title
-				</label>
-				<input
-					type='text'
-					id='title'
-					name='title'
-					defaultValue=''
-					className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
-					placeholder='Add a title here...'
-					ref={register}
-					required
-				/>
-
-				{/* Description */}
-				<div className='flex justify-between mt-4'>
-					<label htmlFor='description' className='block text-sm font-semibold text-base-secondary'>
-						Description
-					</label>
-					<span className='text-sm italic cursor-default text-base-secondary' id='description-optional'>
-						Optional
-					</span>
-				</div>
-				<div className='mt-1'>
-					<textarea
-						id='description'
-						name='description'
-						defaultValue=''
-						rows={3}
-						className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
-						placeholder='Add a description here...'
-						aria-describedby='description-optional'
-						ref={register}
-					/>
-				</div>
-
-				{/* Choices */}
+				<Input id='title' label='Title' placeholder='Add a title here...' register={register} />
+				<Textarea id='description' label='Description' placeholder='Add a description here...' register={register} />
 				<div className='flex mt-4'>
 					<label id='choices' htmlFor='choices' className='inline-flex text-sm font-semibold text-base-secondary'>
 						Choices
@@ -130,27 +96,15 @@ export default function CreatePage(): JSX.Element {
 						</button>
 					</div>
 				))}
-
-				{/* Voting System */}
-				<label htmlFor='type' className='block mt-4 text-sm font-semibold text-base-secondary'>
-					Voting System
-				</label>
-				<select
-					id='type'
-					name='type'
-					defaultValue='First Past The Post'
-					className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
-					required
-					ref={register}
-				>
-					<option>First Past The Post</option>
-					<option>Ranked Choice</option>
-					<option>Single Transferable</option>
-				</select>
-
+				<fieldset className='mt-3'>
+					<legend className='text-base font-medium text-base-secondary'>Voting Systems</legend>
+					<Checkbox id='voting-system-1' label='First Past The Post' description='an example description here' />
+					<Checkbox id='voting-system-2' label='Ranked Choice' description='an example description here' />
+					<Checkbox id='voting-system-3' label='Single Transferable' description='an example description here' />
+				</fieldset>
 				<button
 					type='submit'
-					className='inline-flex items-center px-3 py-2 mt-3 text-sm font-medium leading-4 text-black bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+					className='inline-flex items-center px-3 py-2 mt-4 text-sm font-medium leading-4 text-black bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
 				>
 					Submit
 				</button>
