@@ -1,9 +1,11 @@
 import { StructError, assert } from 'superstruct';
 import { useFieldArray, useForm } from 'react-hook-form';
 
-import { Checkbox } from '@components/Inputs/Checkbox';
+import { CheckboxBlock } from '@components/Inputs/CheckboxBlock';
 import { Input } from '@components/Inputs/Input';
-import { Textarea } from '@components/Inputs/Textarea';
+import { Label } from '@components/Inputs/Label';
+import { TextArea } from '@components/Inputs/TextArea';
+import { logError } from '@utils/logError';
 import { pollSchema } from '@utils/dataSchemas';
 
 export default function CreatePage(): JSX.Element {
@@ -14,7 +16,7 @@ export default function CreatePage(): JSX.Element {
 			title: ``,
 			description: ``,
 			choices: [{ choice: `` }, { choice: `` }, { choice: `` }],
-			type: ``,
+			types: [],
 		},
 	});
 	const { fields, append, remove } = useFieldArray({ control, name: `choices` });
@@ -35,29 +37,41 @@ export default function CreatePage(): JSX.Element {
 			};
 			postData();
 		} catch (error) {
+			logError(error);
 			if (error instanceof StructError) {
 				switch (error.key) {
 					case `title`:
-						throw new Error(`Please enter a title that is no more than 100 characters long.`);
+						return alert(`Please enter a title that is no more than 100 characters long.`);
 					case `description`:
-						throw new Error(`Please enter a description that is no more than 500 characters long.`);
+						return alert(`Please enter a description that is no more than 500 characters long.`);
 					case `choices`:
-						throw new Error(`Please enter between 2 and 10 choices, no more than 100 characters long.`);
-					case `type`:
-						throw new Error(`Please choose a type of voting system.`);
+						return alert(`Please enter between 2 and 10 choices, no more than 100 characters long.`);
+					case `types`:
+						return alert(`Please choose at least one type of voting system.`);
 					default:
-						throw new Error(`An unexpected error occured. Sorry about that! The devs have been notified. Please try again later!`);
+						return alert(`An unexpected error occured. Sorry about that! The devs have been notified. Please try again later!`);
 				}
-			} else throw new Error(`An unexpected error occured. Sorry about that! The devs have been notified. Please try again later!`);
+			} else return alert(`An unexpected error occured. Sorry about that! The devs have been notified. Please try again later!`);
 		}
 	};
 
 	return (
 		<main className='container flex items-center justify-center w-full min-h-content bg-base-primary'>
-			<form className='w-full px-4 py-8 my-12 border border-gray-300 md:w-2/3 sm:rounded-lg sm:px-10' onSubmit={handleSubmit(onSubmit)}>
+			<form
+				className='w-full px-4 py-8 my-12 border border-gray-300 md:w-2/3 sm:rounded-lg sm:px-10'
+				onSubmit={handleSubmit(onSubmit)}
+				autoComplete='off'
+			>
 				<h1 className='text-xl font-bold text-center text-base-secondary'>Add a Poll</h1>
-				<Input id='title' label='Title' placeholder='Add a title here...' register={register} />
-				<Textarea id='description' label='Description' placeholder='Add a description here...' register={register} />
+				<Label id='title' label='Title' />
+				<Input id='title' name='title' defaultValue='' placeholder='Add a title here...' register={register} required={true} />
+				<div className='flex justify-between mt-4'>
+					<Label id='description' label='Description' />
+					<span id='description-optional' className='text-sm italic cursor-default text-base-secondary'>
+						Optional
+					</span>
+				</div>
+				<TextArea id='description' placeholder='Add a description here...' register={register} />
 				<div className='flex mt-4'>
 					<label id='choices' htmlFor='choices' className='inline-flex text-sm font-semibold text-base-secondary'>
 						Choices
@@ -74,14 +88,12 @@ export default function CreatePage(): JSX.Element {
 				</div>
 				{fields.map((item, index) => (
 					<div className={`flex ${index ? `mt-3` : `mt-1`}`} key={item.id}>
-						<input
-							type='text'
+						<Input
 							id='choice'
-							className='block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
-							placeholder='Add a choice here...'
 							name={`choices[${index}].choice`}
 							defaultValue={`${item.choice}`}
-							ref={register()}
+							placeholder='Add a choice here...'
+							register={register}
 							required
 							aria-labelledby='choices'
 						/>
@@ -98,9 +110,9 @@ export default function CreatePage(): JSX.Element {
 				))}
 				<fieldset className='mt-3'>
 					<legend className='text-base font-medium text-base-secondary'>Voting Systems</legend>
-					<Checkbox id='voting-system-1' label='First Past The Post' description='an example description here' />
-					<Checkbox id='voting-system-2' label='Ranked Choice' description='an example description here' />
-					<Checkbox id='voting-system-3' label='Single Transferable' description='an example description here' />
+					<CheckboxBlock id='firstPastThePost' label='First Past The Post' description='an example description here' register={register} />
+					<CheckboxBlock id='rankedChoice' label='Ranked Choice' description='an example description here' register={register} />
+					<CheckboxBlock id='singleTransferable' label='Single Transferable' description='an example description here' register={register} />
 				</fieldset>
 				<button
 					type='submit'
