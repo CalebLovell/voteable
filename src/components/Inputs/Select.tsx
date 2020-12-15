@@ -2,7 +2,7 @@ interface Props {
 	id: string;
 	name: string;
 	options: string[];
-	register?: any;
+	register?: () => void;
 	customTailwindColor?: string;
 }
 
