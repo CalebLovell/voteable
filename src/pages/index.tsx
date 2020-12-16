@@ -1,6 +1,5 @@
-import { Poll, Polls } from '@utils/dataTypes';
-
 import { GetStaticProps } from 'next';
+import { Poll } from '@utils/dataTypes';
 import { useRouter } from 'next/router';
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -10,7 +9,7 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 interface Props {
-	polls: Polls;
+	polls: Poll[];
 }
 
 const LandingPage: React.FC<Props> = ({ polls }): JSX.Element => {
@@ -31,7 +30,7 @@ const LandingPage: React.FC<Props> = ({ polls }): JSX.Element => {
 					<button key={poll.id} className='mb-4 border-2 border-indigo-500' onClick={() => router.push(`/polls/${poll.id}`)}>
 						<p>{poll.title}</p>
 						<p>{poll.description}</p>
-						<p>{poll.type}</p>
+						{poll.types ? Object.keys(poll.types).map((x, i) => <p key={i}>{x}</p>) : null}
 					</button>
 				))}
 			</section>

@@ -11,31 +11,32 @@ import { pollSchema } from '@utils/dataSchemas';
 export default function CreatePage(): JSX.Element {
 	const user_id = `0ngT8eAMT9mNH5qyqSem`;
 
-	const { register, control, handleSubmit } = useForm({
+	const { control, register, handleSubmit } = useForm({
 		defaultValues: {
 			title: ``,
-			description: ``,
+			description: null,
 			choices: [{ choice: `` }, { choice: `` }, { choice: `` }],
 			types: [],
+			user_id: user_id,
 		},
 	});
 	const { fields, append, remove } = useFieldArray({ control, name: `choices` });
 
 	const onSubmit = (data: unknown) => {
-		data.user_id = user_id;
 		try {
+			console.log(data);
 			assert(data, pollSchema);
-			const postData = async () => {
-				const res = await fetch(`http://localhost:3000/api/polls`, {
-					method: `POST`,
-					headers: { 'Content-Type': `application/json` },
-					body: JSON.stringify(data),
-					mode: `cors`,
-					referrerPolicy: `no-referrer`,
-				});
-				return res;
-			};
-			postData();
+			// const postData = async () => {
+			// 	const res = await fetch(`http://localhost:3000/api/polls`, {
+			// 		method: `POST`,
+			// 		headers: { 'Content-Type': `application/json` },
+			// 		body: JSON.stringify(data),
+			// 		mode: `cors`,
+			// 		referrerPolicy: `no-referrer`,
+			// 	});
+			// 	return res;
+			// };
+			// postData();
 		} catch (error) {
 			logError(error);
 			if (error instanceof StructError) {
@@ -63,15 +64,15 @@ export default function CreatePage(): JSX.Element {
 				autoComplete='off'
 			>
 				<h1 className='text-xl font-bold text-center text-base-secondary'>Add a Poll</h1>
-				<Label id='title' label='Title' />
-				<Input id='title' name='title' defaultValue='' placeholder='Add a title here...' register={register} required={true} />
+				<Label name='title' label='Title' />
+				<Input name='title' placeholder='Add a title here...' register={register} required={true} />
 				<div className='flex justify-between mt-4'>
-					<Label id='description' label='Description' />
+					<Label name='description' label='Description' />
 					<span id='description-optional' className='text-sm italic cursor-default text-base-secondary'>
 						Optional
 					</span>
 				</div>
-				<TextArea id='description' placeholder='Add a description here...' register={register} />
+				<TextArea name='description' placeholder='Add a description here...' register={register} />
 				<div className='flex mt-4'>
 					<label id='choices' htmlFor='choices' className='inline-flex text-sm font-semibold text-base-secondary'>
 						Choices
@@ -89,9 +90,7 @@ export default function CreatePage(): JSX.Element {
 				{fields.map((item, index) => (
 					<div className={`flex ${index ? `mt-3` : `mt-1`}`} key={item.id}>
 						<Input
-							id='choice'
 							name={`choices[${index}].choice`}
-							defaultValue={`${item.choice}`}
 							placeholder='Add a choice here...'
 							register={register}
 							required
@@ -110,9 +109,9 @@ export default function CreatePage(): JSX.Element {
 				))}
 				<fieldset className='mt-3'>
 					<legend className='text-base font-medium text-base-secondary'>Voting Systems</legend>
-					<CheckboxBlock id='firstPastThePost' label='First Past The Post' description='an example description here' register={register} />
-					<CheckboxBlock id='rankedChoice' label='Ranked Choice' description='an example description here' register={register} />
-					<CheckboxBlock id='singleTransferable' label='Single Transferable' description='an example description here' register={register} />
+					<CheckboxBlock name='types' label='First Past The Post' description='an example description here' register={register} />
+					<CheckboxBlock name='types' label='Ranked Choice' description='an example description here' register={register} />
+					<CheckboxBlock name='types' label='Single Transferable' description='an example description here' register={register} />
 				</fieldset>
 				<button
 					type='submit'

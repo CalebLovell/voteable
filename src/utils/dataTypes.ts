@@ -6,23 +6,22 @@ export interface User {
 	updated_at: Timestamp;
 }
 
-interface Choice {
-	choice_id: string;
-	title: string;
-}
+type VotingType = `First Past The Post` | `Ranked Choice` | `Single Transferable`;
 
-interface VotingTypes {
-	firstPastThePost: boolean;
-	rankedChoice: boolean;
-	singleTransferable: boolean;
+export interface NewPoll {
+	title: string;
+	description: string | null;
+	choices: string[];
+	types: VotingType[];
+	user_id: string;
 }
 
 export interface Poll {
 	id: string;
 	title: string;
 	description?: string;
-	choices: Choice[];
-	types: VotingTypes;
+	choices: string[];
+	types: VotingType[];
 	user_id: string;
 	created_at: Timestamp;
 	expiration: Timestamp;
@@ -34,7 +33,3 @@ export interface Vote {
 	choice_id: string;
 	created_at: Timestamp;
 }
-
-export type Users = User[];
-export type Polls = Poll[];
-export type Votes = Vote[];

@@ -18,7 +18,7 @@ const PollPage: React.FC<Props> = ({ poll }): JSX.Element => {
 			<fieldset className='mt-6'>
 				<legend className='text-base font-medium leading-6 text-gray-900'>{poll.title}</legend>
 				<p className='text-sm leading-5 text-gray-500'>{poll.description}</p>
-				<p className='text-sm leading-5 text-gray-500'>Voting type: {poll.type}</p>
+				<p className='text-sm leading-5 text-gray-500'>Poll types: {poll.types[0]}</p>
 				<p className='text-sm leading-5 text-gray-500'>User: {poll.user_id}</p>
 				<div className='mt-4'>
 					{poll.choices.map((choice, i) => (
