@@ -10,7 +10,7 @@ type VotingType = `First Past The Post` | `Ranked Choice` | `Single Transferable
 
 export interface NewPoll {
 	title: string;
-	description: string | null;
+	description?: string;
 	choices: string[];
 	types: VotingType[];
 	user_id: string;

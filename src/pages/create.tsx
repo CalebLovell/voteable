@@ -1,26 +1,13 @@
+import { Field, Form } from 'react-final-form';
 import { StructError, assert } from 'superstruct';
-import { useFieldArray, useForm } from 'react-hook-form';
 
-import { CheckboxBlock } from '@components/Inputs/CheckboxBlock';
-import { Input } from '@components/Inputs/Input';
-import { Label } from '@components/Inputs/Label';
-import { TextArea } from '@components/Inputs/TextArea';
+import { FieldArray } from 'react-final-form-arrays';
+import arrayMutators from 'final-form-arrays';
 import { logError } from '@utils/logError';
 import { pollSchema } from '@utils/dataSchemas';
 
 export default function CreatePage(): JSX.Element {
 	const user_id = `0ngT8eAMT9mNH5qyqSem`;
-
-	const { control, register, handleSubmit } = useForm({
-		defaultValues: {
-			title: ``,
-			description: null,
-			choices: [{ choice: `` }, { choice: `` }, { choice: `` }],
-			types: [],
-			user_id: user_id,
-		},
-	});
-	const { fields, append, remove } = useFieldArray({ control, name: `choices` });
 
 	const onSubmit = (data: unknown) => {
 		try {
@@ -58,134 +45,206 @@ export default function CreatePage(): JSX.Element {
 
 	return (
 		<main className='container flex items-center justify-center w-full min-h-content bg-base-primary'>
-			<form
-				className='w-full px-4 py-8 my-12 border border-gray-300 md:w-2/3 sm:rounded-lg sm:px-10'
-				onSubmit={handleSubmit(onSubmit)}
-				autoComplete='off'
-			>
-				<h1 className='text-xl font-bold text-center text-base-secondary'>Add a Poll</h1>
-
-				{/* Title */}
-				<label htmlFor='title' className='block text-sm font-semibold text-base-secondary'>
-					Title
-				</label>
-				<input
-					type='text'
-					id='title'
-					name='title'
-					defaultValue=''
-					className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
-					placeholder='Add a title here...'
-					ref={register}
-					required
-				/>
-
-				{/* Description */}
-				<div className='flex justify-between mt-4'>
-					<label htmlFor='description' className='block text-sm font-semibold text-base-secondary'>
-						Description
-					</label>
-					<span className='text-sm italic cursor-default text-base-secondary' id='description-optional'>
-						Optional
-					</span>
-				</div>
-				<div className='mt-1'>
-					<textarea
-						id='description'
-						name='description'
-						defaultValue=''
-						rows={3}
-						className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
-						placeholder='Add a description here...'
-						aria-describedby='description-optional'
-						ref={register}
-					/>
-				</div>
-
-				{/* Choices */}
-				<div className='flex mt-4'>
-					<label id='choices' htmlFor='choices' className='inline-flex text-sm font-semibold text-base-secondary'>
-						Choices
-					</label>
-					<button
-						className='inline-flex items-center rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-						type='button'
-						onClick={() => append({ choice: `` })}
+			<Form
+				onSubmit={onSubmit}
+				mutators={{ ...arrayMutators }}
+				initialValues={{
+					title: ``,
+					choices: [``, ``],
+					types: [],
+					user_id: user_id,
+				}}
+				render={({
+					handleSubmit,
+					form: {
+						mutators: { push },
+					},
+				}) => (
+					<form
+						className='w-full px-4 py-8 my-12 border border-gray-300 md:w-2/3 sm:rounded-lg sm:px-10'
+						onSubmit={handleSubmit}
+						autoComplete='off'
 					>
-						<svg className='w-4 text-base-secondary' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
-							<path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M12 6v6m0 0v6m0-6h6m-6 0H6' />
-						</svg>
-					</button>
-				</div>
-				{fields.map((item, index) => (
-					<div className={`flex ${index ? `mt-3` : `mt-1`}`} key={item.id}>
-						<input
-							type='text'
-							id='choice'
-							className='block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
-							placeholder='Add a choice here...'
-							name={`choices[${index}].choice`}
-							defaultValue={`${item.choice}`}
-							ref={register()}
-							required
-							aria-labelledby='choices'
+						<h1 className='text-xl font-bold text-center text-base-secondary'>Add a Poll</h1>
+						<Field
+							name='title'
+							render={({ input }) => (
+								<>
+									<label htmlFor={input.name} className='block text-sm font-semibold text-base-secondary'>
+										Title
+									</label>
+									<input
+										{...input}
+										className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+										placeholder='Add a title here...'
+										type='text'
+										required
+										maxLength={100}
+									/>
+								</>
+							)}
 						/>
-						<button
-							className='inline-flex items-center p-2 ml-3 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-							type='button'
-							onClick={() => remove(index)}
-						>
-							<svg className='w-4 text-gray-600' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
-								<path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M20 12H4' />
-							</svg>
-						</button>
-					</div>
-				))}
+						<Field
+							name='description'
+							render={({ input }) => (
+								<>
+									<div className='flex justify-between mt-4'>
+										<label htmlFor={input.name} className='block text-sm font-semibold text-base-secondary'>
+											Description
+										</label>
+										<span className='text-sm italic cursor-default text-base-secondary' id='description-optional'>
+											Optional
+										</span>
+									</div>
+									<div className='mt-1'>
+										<textarea
+											{...input}
+											className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+											placeholder='Add a description here...'
+											aria-describedby='description-optional'
+											rows={3}
+											maxLength={2000}
+										/>
+									</div>
+								</>
+							)}
+						/>
 
-				{/* Voting System */}
-				<fieldset className='mt-3'>
-					<legend className='text-base font-medium text-base-secondary'>Voting Systems</legend>
-					<div className='relative flex items-start mt-2'>
-						<div className='flex items-center h-5 '>
-							<input name='types' type='checkbox' className='w-4 h-4 text-indigo-500 border-gray-300 rounded focus:ring-indigo-500' />
-						</div>
-						<div className='ml-3 text-sm'>
-							<label htmlFor='types' className='font-bold text-base-secondary'>
-								First Past The Post
+						<div className='flex mt-4'>
+							<label id='choices' htmlFor='choices' className='inline-flex text-sm font-semibold text-base-secondary'>
+								Choices
 							</label>
-							<p className='text-gray-400'>an example description here</p>
+							<button
+								className='inline-flex items-center rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+								type='button'
+								onClick={() => push(`choices`, ``)}
+							>
+								<svg
+									className='w-4 text-base-secondary'
+									fill='none'
+									stroke='currentColor'
+									viewBox='0 0 24 24'
+									xmlns='http://www.w3.org/2000/svg'
+								>
+									<path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M12 6v6m0 0v6m0-6h6m-6 0H6' />
+								</svg>
+							</button>
 						</div>
-					</div>
-					<div className='relative flex items-start mt-2'>
-						<div className='flex items-center h-5 '>
-							<input name='types' type='checkbox' className='w-4 h-4 text-indigo-500 border-gray-300 rounded focus:ring-indigo-500' />
-						</div>
-						<div className='ml-3 text-sm'>
-							<label htmlFor='types' className='font-bold text-base-secondary'>
-								Ranked Choice
-							</label>
-							<p className='text-gray-400'>an example description here</p>
-						</div>
-					</div>
-					<div className='relative flex items-start mt-2'>
-						<div className='flex items-center h-5 '>
-							<input name='types' type='checkbox' className='w-4 h-4 text-indigo-500 border-gray-300 rounded focus:ring-indigo-500' />
-						</div>
-						<div className='ml-3 text-sm'>
-							<label htmlFor='types' className='font-bold text-base-secondary'>
-								Single Transferable
-							</label>
-							<p className='text-gray-400'>an example description here</p>
-						</div>
-					</div>
-				</fieldset>
-				<button
-					type='submit'
-					className='inline-flex items-center px-3 py-2 mt-4 text-sm font-medium leading-4 text-black bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-				>
-					Submit
-				</button>
-			</form>
+						<FieldArray name='choices'>
+							{({ fields }) =>
+								fields.map((name, index) => (
+									<div className={`flex ${index ? `mt-3` : `mt-1`}`} key={name}>
+										<Field
+											name={`${name}`}
+											render={({ input }) => (
+												<input
+													{...input}
+													type='text'
+													className='block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+													placeholder='Add a choice here...'
+													required
+													aria-labelledby='choices'
+												/>
+											)}
+										/>
+										<button
+											className='inline-flex items-center p-2 ml-3 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+											type='button'
+											onClick={() => fields.remove(index)}
+										>
+											<svg
+												className='w-4 text-gray-600'
+												fill='none'
+												stroke='currentColor'
+												viewBox='0 0 24 24'
+												xmlns='http://www.w3.org/2000/svg'
+											>
+												<path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M20 12H4' />
+											</svg>
+										</button>
+									</div>
+								))
+							}
+						</FieldArray>
+
+						<fieldset className='mt-3'>
+							<legend className='text-base font-medium text-base-secondary'>Voting Systems</legend>
+							<Field
+								name='types'
+								value='First Past The Post'
+								type='checkbox'
+								render={({ input }) => (
+									<div className='relative flex items-start mt-2'>
+										<div className='flex items-center h-5 '>
+											<input
+												{...input}
+												type='checkbox'
+												className='w-4 h-4 text-indigo-500 border-gray-300 rounded focus:ring-indigo-500'
+											/>
+										</div>
+										<div className='ml-3 text-sm'>
+											<label htmlFor={input.name} className='font-bold text-base-secondary'>
+												{input.value}
+											</label>
+											<p className='text-gray-400'>an example description here</p>
+										</div>
+									</div>
+								)}
+							/>
+							<Field
+								name='types'
+								value='Ranked Choice'
+								type='checkbox'
+								render={({ input }) => (
+									<div className='relative flex items-start mt-2'>
+										<div className='flex items-center h-5 '>
+											<input
+												{...input}
+												type='checkbox'
+												className='w-4 h-4 text-indigo-500 border-gray-300 rounded focus:ring-indigo-500'
+											/>
+										</div>
+										<div className='ml-3 text-sm'>
+											<label htmlFor={input.name} className='font-bold text-base-secondary'>
+												{input.value}
+											</label>
+											<p className='text-gray-400'>an example description here</p>
+										</div>
+									</div>
+								)}
+							/>
+							<Field
+								name='types'
+								value='Single Transferable'
+								type='checkbox'
+								render={({ input }) => (
+									<div className='relative flex items-start mt-2'>
+										<div className='flex items-center h-5 '>
+											<input
+												{...input}
+												type='checkbox'
+												className='w-4 h-4 text-indigo-500 border-gray-300 rounded focus:ring-indigo-500'
+											/>
+										</div>
+										<div className='ml-3 text-sm'>
+											<label htmlFor={input.name} className='font-bold text-base-secondary'>
+												{input.value}
+											</label>
+											<p className='text-gray-400'>an example description here</p>
+										</div>
+									</div>
+								)}
+							/>
+						</fieldset>
+						<button
+							type='submit'
+							className='inline-flex items-center px-3 py-2 mt-4 text-sm font-medium leading-4 text-black bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+						>
+							Submit
+						</button>
+					</form>
+				)}
+			/>
 		</main>
 	);
 }
