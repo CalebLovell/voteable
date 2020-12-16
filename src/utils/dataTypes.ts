@@ -2,13 +2,13 @@ import { Timestamp } from '@firebase/firestore-types';
 
 export interface User {
 	name: string;
-	created_at: Timestamp;
-	updated_at: Timestamp;
+	createdAt: string;
+	updatedAt: string;
 }
 
 type VotingType = `First Past The Post` | `Ranked Choice` | `Single Transferable`;
 
-export interface NewPoll {
+export interface NewPollData {
 	title: string;
 	description?: string;
 	choices: string[];
@@ -22,14 +22,13 @@ export interface Poll {
 	description?: string;
 	choices: string[];
 	types: VotingType[];
+	createdAt: string;
 	user_id: string;
-	created_at: Timestamp;
-	expiration: Timestamp;
 }
 
 export interface Vote {
 	user_id: string;
 	poll_id: string;
 	choice_id: string;
-	created_at: Timestamp;
+	createdAt: string;
 }

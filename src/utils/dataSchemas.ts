@@ -1,8 +1,8 @@
 import { Describe, array, enums, object, optional, size, string } from 'superstruct';
 
-import { NewPoll } from './dataTypes';
+import { NewPollData } from './dataTypes';
 
-export const BasePollSchema: Describe<NewPoll> = object({
+export const BasePollSchema: Describe<NewPollData> = object({
 	title: string(),
 	description: optional(string()),
 	choices: array(string()),
