@@ -12,17 +12,17 @@ export default function CreatePage(): JSX.Element {
 	const onSubmit = (data: unknown) => {
 		try {
 			assert(data, PollSchema);
-			// const postData = async () => {
-			// 	const res = await fetch(`http://localhost:3000/api/polls`, {
-			// 		method: `POST`,
-			// 		headers: { 'Content-Type': `application/json` },
-			// 		body: JSON.stringify(data),
-			// 		mode: `cors`,
-			// 		referrerPolicy: `no-referrer`,
-			// 	});
-			// 	return res;
-			// };
-			// postData();
+			const postData = async () => {
+				const res = await fetch(`http://localhost:3000/api/polls`, {
+					method: `POST`,
+					headers: { 'Content-Type': `application/json` },
+					body: JSON.stringify(data),
+					mode: `cors`,
+					referrerPolicy: `no-referrer`,
+				});
+				return res;
+			};
+			postData();
 		} catch (error) {
 			logError(error);
 			if (error instanceof StructError) {
