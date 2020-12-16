@@ -2,17 +2,16 @@ import { Field, Form } from 'react-final-form';
 import { StructError, assert } from 'superstruct';
 
 import { FieldArray } from 'react-final-form-arrays';
+import { PollSchema } from '@utils/dataSchemas';
 import arrayMutators from 'final-form-arrays';
 import { logError } from '@utils/logError';
-import { pollSchema } from '@utils/dataSchemas';
 
 export default function CreatePage(): JSX.Element {
 	const user_id = `0ngT8eAMT9mNH5qyqSem`;
 
 	const onSubmit = (data: unknown) => {
 		try {
-			console.log(data);
-			assert(data, pollSchema);
+			assert(data, PollSchema);
 			// const postData = async () => {
 			// 	const res = await fetch(`http://localhost:3000/api/polls`, {
 			// 		method: `POST`,
