@@ -64,15 +64,45 @@ export default function CreatePage(): JSX.Element {
 				autoComplete='off'
 			>
 				<h1 className='text-xl font-bold text-center text-base-secondary'>Add a Poll</h1>
-				<Label name='title' label='Title' />
-				<Input name='title' placeholder='Add a title here...' register={register} required={true} />
+
+				{/* Title */}
+				<label htmlFor='title' className='block text-sm font-semibold text-base-secondary'>
+					Title
+				</label>
+				<input
+					type='text'
+					id='title'
+					name='title'
+					defaultValue=''
+					className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+					placeholder='Add a title here...'
+					ref={register}
+					required
+				/>
+
+				{/* Description */}
 				<div className='flex justify-between mt-4'>
-					<Label name='description' label='Description' />
-					<span id='description-optional' className='text-sm italic cursor-default text-base-secondary'>
+					<label htmlFor='description' className='block text-sm font-semibold text-base-secondary'>
+						Description
+					</label>
+					<span className='text-sm italic cursor-default text-base-secondary' id='description-optional'>
 						Optional
 					</span>
 				</div>
-				<TextArea name='description' placeholder='Add a description here...' register={register} />
+				<div className='mt-1'>
+					<textarea
+						id='description'
+						name='description'
+						defaultValue=''
+						rows={3}
+						className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+						placeholder='Add a description here...'
+						aria-describedby='description-optional'
+						ref={register}
+					/>
+				</div>
+
+				{/* Choices */}
 				<div className='flex mt-4'>
 					<label id='choices' htmlFor='choices' className='inline-flex text-sm font-semibold text-base-secondary'>
 						Choices
@@ -89,10 +119,14 @@ export default function CreatePage(): JSX.Element {
 				</div>
 				{fields.map((item, index) => (
 					<div className={`flex ${index ? `mt-3` : `mt-1`}`} key={item.id}>
-						<Input
-							name={`choices[${index}].choice`}
+						<input
+							type='text'
+							id='choice'
+							className='block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
 							placeholder='Add a choice here...'
-							register={register}
+							name={`choices[${index}].choice`}
+							defaultValue={`${item.choice}`}
+							ref={register()}
 							required
 							aria-labelledby='choices'
 						/>
@@ -107,11 +141,43 @@ export default function CreatePage(): JSX.Element {
 						</button>
 					</div>
 				))}
+
+				{/* Voting System */}
 				<fieldset className='mt-3'>
 					<legend className='text-base font-medium text-base-secondary'>Voting Systems</legend>
-					<CheckboxBlock name='types' label='First Past The Post' description='an example description here' register={register} />
-					<CheckboxBlock name='types' label='Ranked Choice' description='an example description here' register={register} />
-					<CheckboxBlock name='types' label='Single Transferable' description='an example description here' register={register} />
+					<div className='relative flex items-start mt-2'>
+						<div className='flex items-center h-5 '>
+							<input name='types' type='checkbox' className='w-4 h-4 text-indigo-500 border-gray-300 rounded focus:ring-indigo-500' />
+						</div>
+						<div className='ml-3 text-sm'>
+							<label htmlFor='types' className='font-bold text-base-secondary'>
+								First Past The Post
+							</label>
+							<p className='text-gray-400'>an example description here</p>
+						</div>
+					</div>
+					<div className='relative flex items-start mt-2'>
+						<div className='flex items-center h-5 '>
+							<input name='types' type='checkbox' className='w-4 h-4 text-indigo-500 border-gray-300 rounded focus:ring-indigo-500' />
+						</div>
+						<div className='ml-3 text-sm'>
+							<label htmlFor='types' className='font-bold text-base-secondary'>
+								Ranked Choice
+							</label>
+							<p className='text-gray-400'>an example description here</p>
+						</div>
+					</div>
+					<div className='relative flex items-start mt-2'>
+						<div className='flex items-center h-5 '>
+							<input name='types' type='checkbox' className='w-4 h-4 text-indigo-500 border-gray-300 rounded focus:ring-indigo-500' />
+						</div>
+						<div className='ml-3 text-sm'>
+							<label htmlFor='types' className='font-bold text-base-secondary'>
+								Single Transferable
+							</label>
+							<p className='text-gray-400'>an example description here</p>
+						</div>
+					</div>
 				</fieldset>
 				<button
 					type='submit'
