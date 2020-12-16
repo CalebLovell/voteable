@@ -5,11 +5,13 @@ import { FieldArray } from 'react-final-form-arrays';
 import { PollSchema } from '@utils/dataSchemas';
 import arrayMutators from 'final-form-arrays';
 import { logError } from '@utils/logError';
+import { useToasts } from 'react-toast-notifications';
 
 export default function CreatePage(): JSX.Element {
+	const { addToast } = useToasts();
 	const user_id = `0ngT8eAMT9mNH5qyqSem`;
 
-	const onSubmit = (data: unknown) => {
+	const onSubmit = async (data: unknown) => {
 		try {
 			assert(data, PollSchema);
 			const postData = async () => {
@@ -22,23 +24,33 @@ export default function CreatePage(): JSX.Element {
 				});
 				return res;
 			};
-			postData();
+			const res = await postData();
+			if (res.status === 200) {
+				addToast(`Saved Successfully`, { appearance: `success` });
+			} else {
+				addToast(res.statusText, { appearance: `error` });
+			}
 		} catch (error) {
 			logError(error);
 			if (error instanceof StructError) {
 				switch (error.key) {
 					case `title`:
-						return alert(`Please enter a title that is no more than 100 characters long.`);
+						return addToast(`Please enter a title that is no more than 100 characters long.`, { appearance: `warning` });
 					case `description`:
-						return alert(`Please enter a description that is no more than 500 characters long.`);
+						return addToast(`Please enter a description that is no more than 500 characters long.`, { appearance: `warning` });
 					case `choices`:
-						return alert(`Please enter between 2 and 10 choices, no more than 100 characters long.`);
+						return addToast(`Please enter between 2 and 10 choices, no more than 100 characters long.`, { appearance: `warning` });
 					case `types`:
-						return alert(`Please choose at least one type of voting system.`);
+						return addToast(`Please choose at least one type of voting system.`, { appearance: `warning` });
 					default:
-						return alert(`An unexpected error occured. Sorry about that! The devs have been notified. Please try again later!`);
+						return addToast(`An unexpected error occured. Sorry about that! The devs have been notified. Please try again later!`, {
+							appearance: `error`,
+						});
 				}
-			} else return alert(`An unexpected error occured. Sorry about that! The devs have been notified. Please try again later!`);
+			} else
+				return addToast(`An unexpected error occured. Sorry about that! The devs have been notified. Please try again later!`, {
+					appearance: `error`,
+				});
 		}
 	};
 
