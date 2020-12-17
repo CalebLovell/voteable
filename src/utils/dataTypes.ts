@@ -1,5 +1,3 @@
-import { Timestamp } from '@firebase/firestore-types';
-
 export interface User {
 	name: string;
 	createdAt: string;
