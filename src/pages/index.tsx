@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next';
 import { Poll } from '@utils/dataTypes';
-import { useRouter } from 'next/router';
+import { PollCard } from '@components/PollCard';
 
 export const getStaticProps: GetStaticProps = async () => {
 	const res = await fetch(`http://localhost:3000/api/polls`);
@@ -13,26 +13,23 @@ interface Props {
 }
 
 const LandingPage: React.FC<Props> = ({ polls }): JSX.Element => {
-	const router = useRouter();
 	const sortedPolls = () => {
 		return polls.sort((a: Poll, b: Poll) => {
-			if (a.created_at > b.created_at) return 1;
-			else if (a.created_at < b.created_at) return -1;
+			if (a.createdAt > b.createdAt) return 1;
+			else if (a.createdAt < b.createdAt) return -1;
 			else return 0;
 		});
 	};
 
 	return (
 		<main className='container w-full min-h-content bg-base-primary text-base-secondary'>
-			<h1>Most recent polls:</h1>
 			<section>
-				{sortedPolls().map(poll => (
-					<button key={poll.id} className='mb-4 border-2 border-indigo-500' onClick={() => router.push(`/polls/${poll.id}`)}>
-						<p>{poll.title}</p>
-						<p>{poll.description}</p>
-						{poll.types ? Object.keys(poll.types).map((x, i) => <p key={i}>{x}</p>) : null}
-					</button>
-				))}
+				<h1 className='text-lg font-medium text-gray-500 uppercase'>Most Recent Polls</h1>
+				<ul className='grid grid-cols-1 gap-5 mt-3 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4'>
+					{sortedPolls().map(poll => (
+						<PollCard key={poll.id} poll={poll} />
+					))}
+				</ul>
 			</section>
 		</main>
 	);
