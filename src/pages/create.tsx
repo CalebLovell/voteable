@@ -183,70 +183,67 @@ export default function CreatePage(): JSX.Element {
 						</FieldArray>
 
 						<fieldset className='mt-3'>
-							<legend className='text-base font-medium text-base-secondary'>Voting Systems</legend>
+							<legend className='block text-sm font-semibold text-base-secondary'>Voting Systems</legend>
 							<Field
-								name='types'
+								name='voting-system-1'
 								value='First Past The Post'
 								type='checkbox'
 								render={({ input }) => (
 									<div className='relative flex items-start mt-2'>
-										<div className='flex items-center h-5 '>
+										<div className='flex items-center h-5'>
 											<input
 												{...input}
+												id={input.name}
 												type='checkbox'
 												className='w-4 h-4 text-indigo-500 border-gray-300 rounded focus:ring-indigo-500'
 											/>
 										</div>
-										<div className='ml-3 text-sm'>
-											<label htmlFor={input.name} className='font-bold text-base-secondary'>
-												{input.value}
-											</label>
-											<p className='text-gray-400'>an example description here</p>
-										</div>
+										<label htmlFor={input.name} className='ml-3 text-sm font-bold text-base-secondary'>
+											{input.value}
+											<p className='font-normal text-gray-400'>an example description here</p>
+										</label>
 									</div>
 								)}
 							/>
 							<Field
-								name='types'
+								name='voting-system-2'
 								value='Ranked Choice'
 								type='checkbox'
 								render={({ input }) => (
 									<div className='relative flex items-start mt-2'>
-										<div className='flex items-center h-5 '>
+										<div className='flex items-center h-5'>
 											<input
 												{...input}
+												id={input.name}
 												type='checkbox'
 												className='w-4 h-4 text-indigo-500 border-gray-300 rounded focus:ring-indigo-500'
 											/>
 										</div>
-										<div className='ml-3 text-sm'>
-											<label htmlFor={input.name} className='font-bold text-base-secondary'>
-												{input.value}
-											</label>
-											<p className='text-gray-400'>an example description here</p>
-										</div>
+										<label htmlFor={input.name} className='ml-3 text-sm font-bold text-base-secondary'>
+											{input.value}
+											<p className='font-normal text-gray-400'>an example description here</p>
+										</label>
 									</div>
 								)}
 							/>
 							<Field
-								name='types'
+								name='voting-system-3'
 								value='Single Transferable'
 								type='checkbox'
 								render={({ input }) => (
 									<div className='relative flex items-start mt-2'>
-										<div className='flex items-center h-5 '>
+										<div className='flex items-center h-5'>
 											<input
 												{...input}
+												id={input.name}
 												type='checkbox'
 												className='w-4 h-4 text-indigo-500 border-gray-300 rounded focus:ring-indigo-500'
 											/>
 										</div>
-										<div className='ml-3 text-sm'>
-											<label htmlFor={input.name} className='font-bold text-base-secondary'>
-												{input.value}
-											</label>
-											<p className='text-gray-400'>an example description here</p>
-										</div>
+										<label htmlFor={input.name} className='ml-3 text-sm font-bold text-base-secondary'>
+											{input.value}
+											<p className='font-normal text-gray-400'>an example description here</p>
+										</label>
 									</div>
 								)}
 							/>
@@ -257,7 +254,12 @@ export default function CreatePage(): JSX.Element {
 						>
 							Submit
 							{loading ? (
-								<svg className='w-4 h-4 ml-2 text-accent-primary animate-spin' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'>
+								<svg
+									className='w-4 h-4 ml-2 text-accent-primary animate-spin'
+									xmlns='http://www.w3.org/2000/svg'
+									fill='none'
+									viewBox='0 0 24 24'
+								>
 									<circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='4'></circle>
 									<path
 										className='opacity-75'
