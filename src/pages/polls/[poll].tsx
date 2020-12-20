@@ -43,7 +43,7 @@ const PollPage: React.FC<Props> = ({ poll }): JSX.Element => {
 									id={choice}
 									type='radio'
 									className='w-4 h-4 ml-4 text-indigo-600 border-gray-300 cursor-pointer focus:ring-indigo-500'
-									onClick={() => setRadioChecked(choice)}
+									onChange={e => setRadioChecked(e.currentTarget.id)}
 									checked={radioChecked === choice}
 								/>
 								<label htmlFor={choice} className='flex flex-col w-full py-4 ml-3 cursor-pointer'>
