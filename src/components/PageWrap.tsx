@@ -1,14 +1,9 @@
 import Head from 'next/head';
 import { MobileMenu } from '@components/Layout/MobileMenu';
 import { NavBar } from '@components/Layout/NavBar';
-import { ReactNode } from 'react';
 import { useGlobalState } from '@providers/GlobalProvider';
 
-interface Props {
-	children?: ReactNode;
-}
-
-export const PageWrap: React.FC<Props> = ({ children }) => {
+export const PageWrap: React.FC = ({ children }) => {
 	const { mobileNavOpen } = useGlobalState();
 	return (
 		<>
