@@ -1,7 +1,9 @@
+import * as React from 'react';
+
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 
 import { Poll } from '@utils/dataTypes';
-import { useState } from 'react';
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
 	const res = await fetch(`http://localhost:3000/api/polls/${context.params.poll}`);
@@ -9,12 +11,8 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
 	return { props: { poll: data } };
 };
 
-interface Props {
-	poll: Poll;
-}
-
-const PollPage: React.FC<Props> = ({ poll }): JSX.Element => {
-	const [radioChecked, setRadioChecked] = useState(poll.choices[0]);
+const PollPage = ({ poll }: { poll: Poll }): JSX.Element => {
+	const [radioChecked, setRadioChecked] = React.useState(poll.choices[0]);
 
 	const renderRoundedClasses = (i: number): string => {
 		if (i === 0) return `rounded-tl-md rounded-tr-md`;
@@ -56,7 +54,6 @@ const PollPage: React.FC<Props> = ({ poll }): JSX.Element => {
 					</div>
 				</fieldset>
 			) : null}
-			<button>Vote</button>
 		</main>
 	);
 };
