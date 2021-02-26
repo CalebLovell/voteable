@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, DropResult, Droppable } from 'react-beautiful-dnd';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 
 import { Poll } from '@utils/dataTypes';
@@ -13,11 +13,21 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
 
 const PollPage = ({ poll }: { poll: Poll }): JSX.Element => {
 	const [radioChecked, setRadioChecked] = React.useState(poll.choices[0]);
+	const [rankedChoices, setRankedChoices] = React.useState(poll.choices);
 
 	const renderRoundedClasses = (i: number): string => {
 		if (i === 0) return `rounded-tl-md rounded-tr-md`;
 		else if (i === poll.choices.length - 1) return `rounded-bl-md rounded-br-md`;
 		else return ``;
+	};
+
+	const reorderChoices = (result: DropResult) => {
+		if (!result.destination) return;
+		if (result.destination.index === result.source.index) return;
+		const items = Array.from(rankedChoices);
+		const [reorderedItem] = items.splice(result.source.index, 1);
+		items.splice(result.destination.index, 0, reorderedItem);
+		setRankedChoices(items);
 	};
 
 	return (
@@ -53,6 +63,31 @@ const PollPage = ({ poll }: { poll: Poll }): JSX.Element => {
 						))}
 					</div>
 				</fieldset>
+			) : null}
+			{poll.types.includes(`First Past The Post`) ? (
+				<DragDropContext onDragEnd={reorderChoices}>
+					<Droppable droppableId='ranked'>
+						{droppableProvided => (
+							<ul className='border rounded-md' {...droppableProvided.droppableProps} ref={droppableProvided.innerRef}>
+								{rankedChoices.map((choice, i) => (
+									<Draggable key={choice} draggableId={choice} index={i}>
+										{draggableProvided => (
+											<li
+												ref={draggableProvided.innerRef}
+												{...draggableProvided.draggableProps}
+												{...draggableProvided.dragHandleProps}
+												className='w-full h-10'
+											>
+												<p>{choice}</p>
+											</li>
+										)}
+									</Draggable>
+								))}
+								{droppableProvided.placeholder}
+							</ul>
+						)}
+					</Droppable>
+				</DragDropContext>
 			) : null}
 		</main>
 	);
